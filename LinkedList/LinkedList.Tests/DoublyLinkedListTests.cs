@@ -188,4 +188,39 @@ public class DoublyLinkedListTests
         }
     }
 
+    [Theory]
+    [InlineData(0, 'a', 'a', 'b', 'c')]
+    [InlineData(1, 'b', 'a', 'b', 'c')]
+    [InlineData(2, 'l', 'H', 'e', 'l', 'l', 'o')]
+    [InlineData(0, 'l', 'l', 'l', 'l', 'l', 'l')]
+    [InlineData(-1, 'x', 'H', 'e', 'l', 'l', 'o')]
+    [InlineData(-1, 'x')]
+    public void FindsFirst(int expected, char toFind, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+
+        var foundElement = _sut.FindFirst(toFind);
+        Assert.Equal(expected, foundElement);
+    }
+    
+    [Theory]
+    [InlineData(0, 'a', 'a', 'b', 'c')]
+    [InlineData(1, 'b', 'a', 'b', 'c')]
+    [InlineData(3, 'l', 'H', 'e', 'l', 'l', 'o')]
+    [InlineData(4, 'l', 'l', 'l', 'l', 'l', 'l')]
+    [InlineData(-1, 'x', 'H', 'e', 'l', 'l', 'o')]
+    [InlineData(-1, 'x')]
+    public void FindsLast(int expected, char toFind, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+
+        var foundElement = _sut.FindLast(toFind);
+        Assert.Equal(expected, foundElement);
+    }
 }
