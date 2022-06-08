@@ -13,9 +13,9 @@ public class DoublyLinkedListTests
 
     public static IEnumerable<object[]> LengthTestData()
     {
-        yield return new object[]{0, Array.Empty<char>() };
-        yield return new object[]{3, new[] {'a', 'b', 'c'} };
-        yield return new object[]{12, "Hello world!".ToArray() };
+        yield return new object[] {0, Array.Empty<char>()};
+        yield return new object[] {3, new[] {'a', 'b', 'c'}};
+        yield return new object[] {12, "Hello world!".ToArray()};
     }
 
     [Theory]
@@ -42,7 +42,7 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         var gotElement = _sut.Get(index);
         Assert.Equal(expected, gotElement);
     }
@@ -56,7 +56,7 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         var getElement = () => { _sut.Get(index); };
         Assert.Throws<IndexOutOfRangeException>(getElement);
     }
@@ -72,7 +72,7 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         var lengthBefore = _sut.Length();
         _sut.Insert(inserted, index);
         var gotElement = _sut.Get(index);
@@ -80,7 +80,7 @@ public class DoublyLinkedListTests
         var lengthAfter = _sut.Length();
         Assert.Equal(lengthBefore + 1, lengthAfter);
     }
-    
+
     [Theory]
     [InlineData(-1, 'a', 'b', 'c')]
     [InlineData(9, 'a', 'b', 'c')]
@@ -90,11 +90,11 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         var insertElement = () => { _sut.Insert('x', index); };
         Assert.Throws<IndexOutOfRangeException>(insertElement);
     }
-    
+
     [Theory]
     [InlineData('a', 0, 'a', 'b', 'c')]
     [InlineData('b', 1, 'a', 'b', 'c')]
@@ -106,7 +106,7 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         var lengthBefore = _sut.Length();
         var deleted = _sut.Delete(index);
         Assert.Equal(expected, deleted);
@@ -123,15 +123,15 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         var deleteElement = () => { _sut.Delete(index); };
         Assert.Throws<IndexOutOfRangeException>(deleteElement);
     }
-    
+
     [Theory]
     [InlineData(2, 'a', 'a', 'b', 'c')]
     [InlineData(2, 'b', 'a', 'b', 'c')]
-    [InlineData(3, 'l','H', 'e', 'l', 'l', 'o')]
+    [InlineData(3, 'l', 'H', 'e', 'l', 'l', 'o')]
     public void DeletesAllElements
         (int expectedLength, char toDelete, params char[] elements)
     {
@@ -139,9 +139,32 @@ public class DoublyLinkedListTests
         {
             _sut.Append(element);
         }
-        
+
         _sut.DeleteAll(toDelete);
         var lengthAfter = _sut.Length();
         Assert.Equal(expectedLength, lengthAfter);
     }
+
+    [Theory]
+    [InlineData]
+    [InlineData('a', 'a', 'b', 'c')]
+    [InlineData('b', 'a', 'b', 'c')]
+    [InlineData('l', 'H', 'e', 'l', 'l', 'o')]
+    public void Clones(params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        var clone = _sut.Clone();
+        var selfLengthBefore = _sut.Length();
+        var cloneLengthBefore = clone.Length();
+        clone.Append('x');
+        var selfLengthAfter = _sut.Length();
+        var cloneLengthAfter = clone.Length();
+        Assert.Equal(selfLengthBefore, selfLengthAfter);
+        Assert.Equal(cloneLengthBefore + 1, cloneLengthAfter);
+    }
+
 }
