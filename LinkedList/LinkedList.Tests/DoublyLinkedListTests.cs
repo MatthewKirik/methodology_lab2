@@ -30,5 +30,21 @@ public class DoublyLinkedListTests
         var length = _sut.Length();
         Assert.Equal(expected, length);
     }
+
+    [Theory]
+    [InlineData('a', 0, 'a', 'b', 'c')]
+    [InlineData('b', 1, 'a', 'b', 'c')]
+    [InlineData('o', 4, 'H', 'e', 'l', 'l', 'o')]
+    public void ReturnsElementAtIndex
+        (char expected, int index, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        var gotElement = _sut.Get(index);
+        Assert.Equal(expected, gotElement);
+    }
     
 }
