@@ -238,4 +238,26 @@ public class DoublyLinkedListTests
         var length = _sut.Length();
         Assert.Equal(0, length);
     }
+    
+    [Theory]
+    [InlineData(new[] {'a', 'b', 'c'}, new[] {'a', 'b', 'c'})]
+    [InlineData(new[] {'H', 'e', 'l', 'l', 'o'}, new[] {'w', 'o', 'r', 'l', 'd'})]
+    public void ExtendsWithAnotherList(char[] list1Elements, char[] list2Elements)
+    {
+        foreach (var element in list1Elements)
+            _sut.Append(element);
+
+        var list2 = new DoublyLinkedList();
+        foreach (var element in list2Elements)
+            list2.Append(element);
+            
+        var list1Length = _sut.Length();
+        var list2Length = list2.Length();
+        _sut.Extend(list2);
+        var list1LengthAfterExtend = _sut.Length();
+        Assert.Equal(list1Length + list2Length, list1LengthAfterExtend);
+        list2.Append('x');
+        var list1LengthAfterAppend = _sut.Length();
+        Assert.Equal(list1LengthAfterExtend, list1LengthAfterAppend);
+    }
 }
