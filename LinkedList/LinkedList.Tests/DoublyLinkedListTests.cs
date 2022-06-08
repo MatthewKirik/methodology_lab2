@@ -50,7 +50,7 @@ public class DoublyLinkedListTests
     [Theory]
     [InlineData(-1, 'a', 'b', 'c')]
     [InlineData(9, 'a', 'b', 'c')]
-    public void ThrowsOnInvalidIndex(int index, params char[] elements)
+    public void ThrowsOnGettingInvalidIndex(int index, params char[] elements)
     {
         foreach (var element in elements)
         {
