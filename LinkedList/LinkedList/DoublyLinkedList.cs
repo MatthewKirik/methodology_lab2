@@ -204,6 +204,8 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public void Extend(IDoublyLinkedList elements)
     {
-        throw new NotImplementedException();
+        var length = elements.Length();
+        for (int i = 0; i < length; i++)
+            Append(elements.Get(i));
     }
 }
