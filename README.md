@@ -1,5 +1,5 @@
 # Doubly linked list
-#### Simple .NET app that serves as a playground for learning unit testing and CT/CD via GitHub Actions
+#### Simple .NET app that serves as a playground for learning unit testing and CI/CD via GitHub Actions
 
 ### Build
 To build the app use ```dotnet-build``` command (https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build).
