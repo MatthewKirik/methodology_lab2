@@ -190,7 +190,16 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public void Clear()
     {
-        throw new NotImplementedException();
+        var current = _head;
+        while (current != null)
+        {
+            var next = current.Next;
+            current.Next = null;
+            current.Prev = null;
+            current = next;
+        }
+        _head = null;
+        _tail = null;
     }
 
     public void Extend(IDoublyLinkedList elements)
