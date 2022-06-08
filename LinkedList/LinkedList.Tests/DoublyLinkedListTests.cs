@@ -46,5 +46,19 @@ public class DoublyLinkedListTests
         var gotElement = _sut.Get(index);
         Assert.Equal(expected, gotElement);
     }
+
+    [Theory]
+    [InlineData(-1, 'a', 'b', 'c')]
+    [InlineData(9, 'a', 'b', 'c')]
+    public void ThrowsOnInvalidIndex(int index, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        var getElement = () => { _sut.Get(index); };
+        Assert.Throws<IndexOutOfRangeException>(getElement);
+    }
     
 }
