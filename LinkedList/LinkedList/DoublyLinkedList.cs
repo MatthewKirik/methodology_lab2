@@ -76,7 +76,27 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public char Delete(int index)
     {
-        throw new NotImplementedException();
+        if (index < 0)
+            throw new IndexOutOfRangeException("Index was negative");
+        int currentIx = 0;
+        var current = _head;
+        while (current != null)
+        {
+            if (currentIx == index)
+            {
+                if (current.Prev != null)
+                    current.Prev.Next = current.Next;
+                if (current.Next != null)
+                    current.Next.Prev = current.Prev;
+                if (current == _head)
+                    _head = current.Next;
+                if (current == _tail)
+                    _tail = current.Prev;
+            }
+            current = current.Next;
+            currentIx++;
+        }
+        throw new IndexOutOfRangeException("Element with such index does not exist");
     }
 
     public void DeleteAll(char element)
@@ -96,7 +116,6 @@ public class DoublyLinkedList : IDoublyLinkedList
             current = current.Next;
             currentIx++;
         }
-
         throw new IndexOutOfRangeException("Element with such index does not exist");
     }
 
