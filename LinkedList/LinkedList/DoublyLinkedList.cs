@@ -92,6 +92,7 @@ public class DoublyLinkedList : IDoublyLinkedList
                     _head = current.Next;
                 if (current == _tail)
                     _tail = current.Prev;
+                return current.Value;
             }
             current = current.Next;
             currentIx++;
