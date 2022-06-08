@@ -223,4 +223,19 @@ public class DoublyLinkedListTests
         var foundElement = _sut.FindLast(toFind);
         Assert.Equal(expected, foundElement);
     }
+    
+    [Theory]
+    [InlineData('a', 'b', 'c')]
+    [InlineData('H', 'e', 'l', 'l', 'o')]
+    public void Clears(params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+
+        _sut.Clear();
+        var length = _sut.Length();
+        Assert.Equal(0, length);
+    }
 }
