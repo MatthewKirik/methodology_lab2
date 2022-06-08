@@ -96,9 +96,9 @@ public class DoublyLinkedListTests
     }
     
     [Theory]
-    [InlineData(0, 'a', 'b', 'c')]
-    [InlineData(1, 'a', 'b', 'c')]
-    [InlineData(4, 'H', 'e', 'l', 'l', 'o')]
+    [InlineData('a', 0, 'a', 'b', 'c')]
+    [InlineData('b', 1, 'a', 'b', 'c')]
+    [InlineData('o', 4, 'H', 'e', 'l', 'l', 'o')]
     public void DeletesElementAtIndex
         (char expected, int index, params char[] elements)
     {
@@ -108,7 +108,8 @@ public class DoublyLinkedListTests
         }
         
         var lengthBefore = _sut.Length();
-        _sut.Delete(index);
+        var deleted = _sut.Delete(index);
+        Assert.Equal(expected, deleted);
         var lengthAfter = _sut.Length();
         Assert.Equal(lengthBefore - 1, lengthAfter);
     }
