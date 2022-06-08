@@ -102,7 +102,22 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public void DeleteAll(char element)
     {
-        throw new NotImplementedException();
+        var current = _head;
+        while (current != null)
+        {
+            if (current.Value == element)
+            {
+                if (current.Prev != null)
+                    current.Prev.Next = current.Next;
+                if (current.Next != null)
+                    current.Next.Prev = current.Prev;
+                if (current == _head)
+                    _head = current.Next;
+                if (current == _tail)
+                    _tail = current.Prev;
+            }
+            current = current.Next;
+        }
     }
 
     public char Get(int index)
