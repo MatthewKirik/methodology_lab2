@@ -167,4 +167,25 @@ public class DoublyLinkedListTests
         Assert.Equal(cloneLengthBefore + 1, cloneLengthAfter);
     }
 
+    [Theory]
+    [InlineData('a', 'b', 'c')]
+    [InlineData('H', 'e', 'l', 'l', 'o')]
+    public void Reverses(params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        var snapshot = _sut.Clone();
+        var length = _sut.Length();
+        _sut.Reverse();
+        for (int i = 0; i < length; i++)
+        {
+            var element = _sut.Get(i);
+            var symmetric = snapshot.Get(length - 1 - i);
+            Assert.Equal(element, symmetric);
+        }
+    }
+
 }
