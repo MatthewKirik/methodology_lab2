@@ -2,14 +2,44 @@
 
 public class DoublyLinkedList : IDoublyLinkedList
 {
+    private class Node
+    {
+        public char Value { get; set; }
+        public Node Prev { get; set; }
+        public Node Next { get; set; }
+    }
+
+    private Node? _head;
+    private Node? _tail;
+    
     public int Length()
     {
-        throw new NotImplementedException();
+        var length = 0;
+        var current = _head;
+        while (current != null)
+        {
+            length++;
+            current = current.Next;
+        }
+        return length;
     }
 
     public void Append(char element)
     {
-        throw new NotImplementedException();
+        var node = new Node
+        {
+            Value = element
+        };
+        if (_head == null)
+        {
+            _head = node;
+            _tail = node;
+        }
+        else
+        {
+            _tail.Next = node;
+            node.Prev = _tail;
+        }
     }
 
     public void Insert(char element, int index)
