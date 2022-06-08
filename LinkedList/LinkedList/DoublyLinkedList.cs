@@ -149,7 +149,15 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public void Reverse()
     {
-        throw new NotImplementedException();
+        var current = _head;
+        while (current != null)
+        {
+            var next = current.Next;
+            current.Next = current.Prev;
+            current.Prev = next;
+            current = next;
+        }
+        (_head, _tail) = (_tail, _head);
     }
 
     public int FindFirst(char element)
