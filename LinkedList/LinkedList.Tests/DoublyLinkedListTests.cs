@@ -94,4 +94,36 @@ public class DoublyLinkedListTests
         var insertElement = () => { _sut.Insert('x', index); };
         Assert.Throws<IndexOutOfRangeException>(insertElement);
     }
+    
+    [Theory]
+    [InlineData(0, 'a', 'b', 'c')]
+    [InlineData(1, 'a', 'b', 'c')]
+    [InlineData(4, 'H', 'e', 'l', 'l', 'o')]
+    public void DeletesElementAtIndex
+        (char expected, int index, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        var lengthBefore = _sut.Length();
+        _sut.Delete(index);
+        var lengthAfter = _sut.Length();
+        Assert.Equal(lengthBefore - 1, lengthAfter);
+    }
+
+    [Theory]
+    [InlineData(-1, 'a', 'b', 'c')]
+    [InlineData(9, 'a', 'b', 'c')]
+    public void ThrowsOnDeletingInvalidIndex(int index, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        var deleteElement = () => { _sut.Delete(index); };
+        Assert.Throws<IndexOutOfRangeException>(deleteElement);
+    }
 }
