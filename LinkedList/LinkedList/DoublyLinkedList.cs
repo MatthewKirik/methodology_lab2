@@ -5,8 +5,8 @@ public class DoublyLinkedList : IDoublyLinkedList
     private class Node
     {
         public char Value { get; set; }
-        public Node Prev { get; set; }
-        public Node Next { get; set; }
+        public Node? Prev { get; set; }
+        public Node? Next { get; set; }
     }
 
     private Node? _head;
@@ -30,7 +30,7 @@ public class DoublyLinkedList : IDoublyLinkedList
         {
             Value = element
         };
-        if (_head == null)
+        if (_head == null || _tail == null)
         {
             _head = node;
             _tail = node;
@@ -39,6 +39,7 @@ public class DoublyLinkedList : IDoublyLinkedList
         {
             _tail.Next = node;
             node.Prev = _tail;
+            _tail = node;
         }
     }
 
