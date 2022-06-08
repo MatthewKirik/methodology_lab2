@@ -60,7 +60,17 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public char Get(int index)
     {
-        throw new NotImplementedException();
+        if (index < 0) 
+            throw new IndexOutOfRangeException("Index was negative");
+        int currentIx = 0;
+        var current = _head;
+        while (current != null)
+        {
+            if (currentIx == index) return current.Value;
+            current = current.Next;
+            currentIx++;
+        }
+        throw new IndexOutOfRangeException("Element with such index does not exist");
     }
 
     public IDoublyLinkedList Clone()
