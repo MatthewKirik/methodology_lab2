@@ -162,12 +162,30 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public int FindFirst(char element)
     {
-        throw new NotImplementedException();
+        int currentIx = 0;
+        var current = _head;
+        while (current != null)
+        {
+            if (current.Value == element)
+                return currentIx;
+            current = current.Next;
+            currentIx++;
+        }
+        return -1;
     }
 
     public int FindLast(char element)
     {
-        throw new NotImplementedException();
+        int currentIx = Length() - 1;
+        var current = _tail;
+        while (current != null)
+        {
+            if (current.Value == element)
+                return currentIx;
+            current = current.Prev;
+            currentIx--;
+        }
+        return -1;
     }
 
     public void Clear()
