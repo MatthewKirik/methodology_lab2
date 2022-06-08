@@ -11,7 +11,7 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     private Node? _head;
     private Node? _tail;
-    
+
     public int Length()
     {
         var length = 0;
@@ -21,6 +21,7 @@ public class DoublyLinkedList : IDoublyLinkedList
             length++;
             current = current.Next;
         }
+
         return length;
     }
 
@@ -45,7 +46,32 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public void Insert(char element, int index)
     {
-        throw new NotImplementedException();
+        if (index < 0)
+            throw new IndexOutOfRangeException("Index was negative");
+        var node = new Node {Value = element};
+        int currentIx = 0;
+        var current = _head;
+        while (current != null)
+        {
+            if (currentIx == index)
+            {
+                var prev = current.Prev;
+                current.Prev = node;
+                node.Next = current;
+                node.Prev = prev;
+                if (prev != null) prev.Next = node;
+                if (current == _head) _head = node;
+                return;
+            }
+
+            current = current.Next;
+            currentIx++;
+        }
+
+        if (currentIx != index) throw new IndexOutOfRangeException("Element with such index does not exist");
+        _tail.Next = node;
+        node.Prev = _tail;
+        _tail = node;
     }
 
     public char Delete(int index)
@@ -60,7 +86,7 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public char Get(int index)
     {
-        if (index < 0) 
+        if (index < 0)
             throw new IndexOutOfRangeException("Index was negative");
         int currentIx = 0;
         var current = _head;
@@ -70,6 +96,7 @@ public class DoublyLinkedList : IDoublyLinkedList
             current = current.Next;
             currentIx++;
         }
+
         throw new IndexOutOfRangeException("Element with such index does not exist");
     }
 
