@@ -127,4 +127,21 @@ public class DoublyLinkedListTests
         var deleteElement = () => { _sut.Delete(index); };
         Assert.Throws<IndexOutOfRangeException>(deleteElement);
     }
+    
+    [Theory]
+    [InlineData(2, 'a', 'a', 'b', 'c')]
+    [InlineData(2, 'b', 'a', 'b', 'c')]
+    [InlineData(3, 'l','H', 'e', 'l', 'l', 'o')]
+    public void DeletesAllElements
+        (int expectedLength, char toDelete, params char[] elements)
+    {
+        foreach (var element in elements)
+        {
+            _sut.Append(element);
+        }
+        
+        _sut.DeleteAll(toDelete);
+        var lengthAfter = _sut.Length();
+        Assert.Equal(expectedLength, lengthAfter);
+    }
 }
