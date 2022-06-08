@@ -137,7 +137,14 @@ public class DoublyLinkedList : IDoublyLinkedList
 
     public IDoublyLinkedList Clone()
     {
-        throw new NotImplementedException();
+        var clone = new DoublyLinkedList();
+        var current = _head;
+        while (current != null)
+        {
+            clone.Append(current.Value);
+            current = current.Next;
+        }
+        return clone;
     }
 
     public void Reverse()
